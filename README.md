@@ -11,7 +11,7 @@ something failed to download
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
-- [Contact]
+- [Contact](#contact)
 
 ## Introduction
  Assuming that you have hotspots on the page, and when users interact with them, additional information about the earbuds is fetched dynamically. 
