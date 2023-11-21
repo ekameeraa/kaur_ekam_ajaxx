@@ -3,6 +3,9 @@
     //variables
     const model = document.querySelector("#model");
     const hotspots = document.querySelectorAll(".Hotspot");
+    // materials by ekam
+    const materialTemplate = document.querySelector("#material-template");
+    const materialList = document.querySelector("#material-list");
   
     //This information needs to be removed then pulled with an AJAX Call using the Fetch API
     //this is the api url https://swiftpixel.com/earbud/api/infoboxes"
@@ -67,32 +70,95 @@
   
       //make AJAX call here
   
-      infoBoxes.forEach((infoBox, index) => {
-        let selected = document.querySelector(`#hotspot-${index+1}`);
+    //   infoBoxes.forEach((infoBox, index) => {
+    //     let selected = document.querySelector(`#hotspot-${index+1}`);
         
-        const titleElement = document.createElement('h2');
-        titleElement.textContent = infoBox.title;
+    //     const titleElement = document.createElement('h2');
+    //     titleElement.textContent = infoBox.title;
   
-        const textElement = document.createElement('p');
-        textElement.textContent = infoBox.text;
+    //     const textElement = document.createElement('p');
+    //     textElement.textContent = infoBox.text;
   
-        selected.appendChild(titleElement);
-        selected.appendChild(textElement);
-      });
-    }
+    //     selected.appendChild(titleElement);
+    //     selected.appendChild(textElement);
+    //   });
+    // }
+
+    // SIDHU MOOSA
+    fetch("https://swiftpixel.com/earbud/api/infoboxes")
+      .then((response) => response.json())
+      .then((infoBoxes) => {
+        console.log(infoBoxes);
+
+        infoBoxes.forEach((infoBox, index) => {
+          let selected = document.querySelector(`#hotspot-${index + 1}`);
+
+          const titleElement = document.createElement("h3");
+          titleElement.textContent = infoBox.heading;
+
+          const imgElement = document.createElement("img");
+          imgElement.src = `images/${infoBox.thumbnail}`;
+
+          const textElement = document.createElement("p");
+          textElement.textContent = infoBox.description;
+
+          selected.appendChild(imgElement);
+          selected.appendChild(titleElement);
+          selected.appendChild(textElement);
+        });
+      })
+      .catch((error) => console.error(error)); //catch and report any errors
+  }
+
     loadInfoBoxes();
   
   
-    function showInfo() {
-      let selected = document.querySelector(`#${this.slot}`);
-      gsap.to(selected, 1, { autoAlpha: 1 });
-    }
+    // function showInfo() {
+    //   let selected = document.querySelector(`#${this.slot}`);
+    //   gsap.to(selected, 1, { autoAlpha: 1 });
+    // }
   
-    function hideInfo() {
-      let selected = document.querySelector(`#${this.slot}`);
-      gsap.to(selected, 1, { autoAlpha: 0 });
-    }
+    // function hideInfo() {
+    //   let selected = document.querySelector(`#${this.slot}`);
+    //   gsap.to(selected, 1, { autoAlpha: 0 });
+    // }
   
+// materials-sidhumoosewala
+function loadMaterialInfo() {
+  // AJAX CALL
+  // https://swiftpixel.com/earbud/api/materials"
+
+  // take every entry in the materialListData then put it in the material li
+  materialListData.forEach((material) => {
+    // clone the template - copy of the template
+    const clone = materialTemplate.content.cloneNode(true);
+
+    // populating the template - HEADING
+    const materialHeading = clone.querySelector(".material-heading");
+    materialHeading.textContent = material.heading;
+
+    //  Populating DESCRIPTION
+    const materialDescription = clone.querySelector(".material-description");
+    materialDescription.textContent = material.description;
+
+    // now adding back to the list
+    // append the populated template to the list
+    materialList.appendChild(clone);
+  });
+}
+loadMaterialInfo();
+
+function showInfo() {
+  let selected = document.querySelector(`#${this.slot}`);
+  gsap.to(selected, 1, { autoAlpha: 1 });
+}
+
+function hideInfo() {
+  let selected = document.querySelector(`#${this.slot}`);
+  gsap.to(selected, 1, { autoAlpha: 0 });
+}
+
+
     //Event listeners
     model.addEventListener("load", modelLoaded);
   
@@ -103,36 +169,37 @@
   
   })();
   
-  
-//  jera fetch ala 
-document.addEventListener("DOMContentLoaded", function () {
-  fetchData();
-});
 
-function fetchData() {
-  fetch("https://swiftpixel.com/earbud/api/infoboxes/")
-    .then((response) => response.json())
-    .then((data) => displayData(data))
-    .catch((error) => console.error("Error fetching data:", error));
-}
 
-function displayData(data) {
-  console.log(data);
+//  jera fetch ala akshpreet
+// document.addEventListener("DOMContentLoaded", function () {
+//   fetchData();
+// });
 
-  if (Array.isArray(data)) {
-    const listContainer = document.getElementById("jsonList");
+// function fetchData() {
+//   fetch("https://swiftpixel.com/earbud/api/infoboxes/")
+//     .then((response) => response.json())
+//     .then((data) => displayData(data))
+//     .catch((error) => console.error("Error fetching data:", error));
+// }
 
-    data.forEach((item) => {
-      const listItem = document.createElement("div");
-      listItem.innerHTML = `
-              <h2>${item.heading}</h2>
-              <p>${item.description}</p>
-              <img src="images/${item.thumbnail}" alt="${item.heading}" style="max-width: 100px; height: auto;">
-          `;
+// function displayData(data) {
+//   console.log(data);
 
-      listContainer.appendChild(listItem);
-    });
-  } else {
-    console.error("Invalid data format. Expected an array.");
-  }
-}
+//   if (Array.isArray(data)) {
+//     const listContainer = document.getElementById("jsonList");
+
+//     data.forEach((item) => {
+//       const listItem = document.createElement("div");
+//       listItem.innerHTML = `
+//               <h2>${item.heading}</h2>
+//               <p>${item.description}</p>
+//               <img src="images/${item.thumbnail}" alt="${item.heading}" style="max-width: 100px; height: auto;">
+//           `;
+
+//       listContainer.appendChild(listItem);
+//     });
+//   } else {
+//     console.error("Invalid data format. Expected an array.");
+//   }
+// }
