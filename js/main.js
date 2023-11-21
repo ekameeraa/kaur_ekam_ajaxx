@@ -104,3 +104,35 @@
   })();
   
   
+//  jera fetch ala 
+document.addEventListener("DOMContentLoaded", function () {
+  fetchData();
+});
+
+function fetchData() {
+  fetch("https://swiftpixel.com/earbud/api/infoboxes/")
+    .then((response) => response.json())
+    .then((data) => displayData(data))
+    .catch((error) => console.error("Error fetching data:", error));
+}
+
+function displayData(data) {
+  console.log(data);
+
+  if (Array.isArray(data)) {
+    const listContainer = document.getElementById("jsonList");
+
+    data.forEach((item) => {
+      const listItem = document.createElement("div");
+      listItem.innerHTML = `
+              <h2>${item.heading}</h2>
+              <p>${item.description}</p>
+              <img src="images/${item.thumbnail}" alt="${item.heading}" style="max-width: 100px; height: auto;">
+          `;
+
+      listContainer.appendChild(listItem);
+    });
+  } else {
+    console.error("Invalid data format. Expected an array.");
+  }
+}
