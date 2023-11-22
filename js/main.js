@@ -2,12 +2,9 @@
   //variables
   const model = document.querySelector("#model");
   const hotspots = document.querySelectorAll(".Hotspot");
-  // materials by ekam
+  // mater....
   const materialTemplate = document.querySelector("#material-template");
   const materialList = document.querySelector("#material-list");
-
-  //This information needs to be removed then pulled with an AJAX Call using the Fetch API
-  //this is the api url https://swiftpixel.com/earbud/api/infoboxes"
 
   const infoBoxes = [
     {
@@ -32,34 +29,37 @@
     },
   ];
 
-  //This information needs to be removed then pulled with an AJAX Call using the Fetch API
-  //this is the api url https://swiftpixel.com/earbud/api/materials"
-
+  // mat..
   const materialListData = [
     {
       heading: "Precision-Crafted Polymers",
       description:
         "Our earbuds are meticulously molded from high-quality plastics, ensuring a blend of elegance, comfort, and resilience that's second to none.",
+      image: "images/f1.jpg",
     },
     {
       heading: "Luxurious Silicone Harmony",
       description:
         "Our uniquely engineered ear tips are cocooned in plush silicone, delivering an opulent embrace for your ears, ensuring an unrivaled fit and exquisite audio experience.",
+      image: "images/f2.jpg",
     },
     {
       heading: "Rubberized Cables",
       description:
         "Experience the unparalleled freedom of movement with our flexible rubber cables that promise durability without compromise.",
+      image: "images/f3.jpg",
     },
     {
       heading: "Enhanced Comfort Sensors",
       description:
         "A touch of magic in the form of built-in microphones and sensors empowers your earbuds to obey your every command, making your audio journey seamless and enchanting.",
+      image: "images/f4.jpg",
     },
     {
       heading: "Artistic Mesh Guard",
       description:
         "Shielded by artful mesh screens, our speakers remain untarnished, keeping your listening experience pristine.",
+      image: "images/f5.jpg",
     },
   ];
 
@@ -71,22 +71,6 @@
   }
 
   function loadInfoBoxes() {
-    //make AJAX call here
-
-    //   infoBoxes.forEach((infoBox, index) => {
-    //     let selected = document.querySelector(`#hotspot-${index+1}`);
-
-    //     const titleElement = document.createElement('h2');
-    //     titleElement.textContent = infoBox.title;
-
-    //     const textElement = document.createElement('p');
-    //     textElement.textContent = infoBox.text;
-
-    //     selected.appendChild(titleElement);
-    //     selected.appendChild(textElement);
-    //   });
-    // }
-
     // SIDHU MOOSA
     fetch("https://swiftpixel.com/earbud/api/infoboxes")
       .then((response) => response.json())
@@ -115,24 +99,9 @@
 
   loadInfoBoxes();
 
-  // function showInfo() {
-  //   let selected = document.querySelector(`#${this.slot}`);
-  //   gsap.to(selected, 1, { autoAlpha: 1 });
-  // }
-
-  // function hideInfo() {
-  //   let selected = document.querySelector(`#${this.slot}`);
-  //   gsap.to(selected, 1, { autoAlpha: 0 });
-  // }
-
   // materials-sidhumoosewala
   function loadMaterialInfo() {
-    // AJAX CALL
-    // https://swiftpixel.com/earbud/api/materials"
-
-    // take every entry in the materialListData then put it in the material li
     materialListData.forEach((material) => {
-      // clone the template - copy of the template
       const clone = materialTemplate.content.cloneNode(true);
 
       // populating the template - HEADING
@@ -142,9 +111,10 @@
       //  Populating DESCRIPTION
       const materialDescription = clone.querySelector(".material-description");
       materialDescription.textContent = material.description;
+      // Populating IMAGE
+      const materialImage = clone.querySelector(".material-image");
+      materialImage.src = material.image; 
 
-      // now adding back to the list
-      // append the populated template to the list
       materialList.appendChild(clone);
     });
   }
@@ -169,42 +139,7 @@
   });
 })();
 
-//  jera fetch ala akshpreet
-// document.addEventListener("DOMContentLoaded", function () {
-//   fetchData();
-// });
-
-// function fetchData() {
-//   fetch("https://swiftpixel.com/earbud/api/infoboxes/")
-//     .then((response) => response.json())
-//     .then((data) => displayData(data))
-//     .catch((error) => console.error("Error fetching data:", error));
-// }
-
-// function displayData(data) {
-//   console.log(data);
-
-//   if (Array.isArray(data)) {
-//     const listContainer = document.getElementById("jsonList");
-
-//     data.forEach((item) => {
-//       const listItem = document.createElement("div");
-//       listItem.innerHTML = `
-//               <h2>${item.heading}</h2>
-//               <p>${item.description}</p>
-//               <img src="images/${item.thumbnail}" alt="${item.heading}" style="max-width: 100px; height: auto;">
-//           `;
-
-//       listContainer.appendChild(listItem);
-//     });
-//   } else {
-//     console.error("Invalid data format. Expected an array.");
-//   }
-// }
-
-// spinner
 document.addEventListener("DOMContentLoaded", function () {
-  // Show the spinner on page load
   document.getElementById("spinner-container").style.display = "flex";
 
   setTimeout(function () {
