@@ -190,3 +190,26 @@ model-viewer > #ar-prompt > img {
     transform: rotate(360deg);
   }
 }
+
+.col-span-full h2 {
+  color: #e89b36;
+  font-size: 30px;
+  text-align: center;
+  animation: fadeIn 4s forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.material-image {
+  width: 100%; 
+  height: auto; 
+  max-width: 300px; 
+  max-height: 200px; 
+}
